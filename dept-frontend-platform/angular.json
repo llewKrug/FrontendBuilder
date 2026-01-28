@@ -58,11 +58,6 @@
             "styles": [
               "projects/builder-app/src/styles.scss"
             ],
-            "server": "projects/builder-app/src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "projects/builder-app/src/server.ts"
-            }
           },
           "configurations": {
             "production": {
@@ -130,12 +125,7 @@
             ],
             "styles": [
               "projects/example-app/src/styles.scss"
-            ],
-            "server": "projects/example-app/src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "projects/example-app/src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {

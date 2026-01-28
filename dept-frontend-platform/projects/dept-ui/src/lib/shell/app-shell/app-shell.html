@@ -1,0 +1,91 @@
+<div class="shell">
+  <dept-header></dept-header>
+
+  <div class="body">
+    <aside class="sidenav">
+      <h2>Components</h2>
+      <ul class="elements-list">
+        <li *ngFor="let el of elements"
+            class="draggable"
+            [class.selected]="isSelected(el)"
+            (click)="onSelectElement(el)">
+          {{ el.label }}
+        </li>
+      </ul>
+    </aside>
+
+    <div class="canvas"
+         (mousedown)="onCanvasMouseDown($event)"
+         (mousemove)="onCanvasMouseMove($event)"
+         (mouseup)="onCanvasMouseUp($event)"
+         (click)="onCanvasClick()">
+
+      <ng-container *ngFor="let el of spawnedElements; let i = index">
+        <button *ngIf="el.type === 'button'"
+                class="spawned-element"
+                [ngStyle]="{
+            top: el.top + 'px',
+            left: el.left + 'px',
+            width: el.width + 'px',
+            height: el.height + 'px',
+            position: 'absolute',
+            'background-color': el.bgColor || '#2563eb',
+            'font-size.px': el.fontSize || 14
+          }"
+                (click)="selectSpawnedElement(i, $event)">
+          {{ el.label || 'Button' }}
+        </button>
+
+        <input *ngIf="el.type === 'input'"
+               class="spawned-element"
+               [ngStyle]="{
+           top: el.top + 'px',
+           left: el.left + 'px',
+           width: el.width + 'px',
+           height: el.height + 'px',
+           position: 'absolute',
+           'background-color': el.bgColor || '#ffffff',
+           'font-size.px': el.fontSize || 14
+         }"
+               (click)="selectSpawnedElement(i, $event)"
+               placeholder="Input" />
+      </ng-container>
+
+      <div *ngIf="isDragging && selectedElement"
+           class="preview-rect"
+           [ngStyle]="{
+             top: previewRect.top + 'px',
+             left: previewRect.left + 'px',
+             width: previewRect.width + 'px',
+             height: previewRect.height + 'px'
+           }">
+      </div>
+    </div>
+  </div>
+
+  <div class="props-panel" *ngIf="selectedElementIndex !== null">
+    <h3>Properties</h3>
+
+    <label>Label:</label>
+    <input type="text"
+           [(ngModel)]="spawnedElements[selectedElementIndex].label" />
+
+    <label>Width:</label>
+    <input type="number"
+           [(ngModel)]="spawnedElements[selectedElementIndex].width" />
+
+    <label>Height:</label>
+    <input type="number"
+           [(ngModel)]="spawnedElements[selectedElementIndex].height" />
+
+    <label>Background Color:</label>
+    <input type="color"
+           [(ngModel)]="spawnedElements[selectedElementIndex].bgColor" />
+
+    <label>Font Size:</label>
+    <input type="number"
+           [(ngModel)]="spawnedElements[selectedElementIndex].fontSize" />
+
+    <button (click)="deleteElement(selectedElementIndex)">Delete</button>
+  </div>
+</div>

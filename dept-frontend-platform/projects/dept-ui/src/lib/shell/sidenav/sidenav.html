@@ -1,0 +1,8 @@
+<aside class="sidenav">
+  <h2>Components</h2>
+  <ul class="elements-list">
+    <li *ngFor="let el of elements" class="draggable" draggable="true" (dragstart)="onDragStart($event, el)">
+      {{ el.label }}
+    </li>
+  </ul>
+</aside>
